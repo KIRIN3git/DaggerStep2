@@ -1,21 +1,26 @@
 package com.example.daggerstep2;
 
-import android.util.Log;
-
 import java.util.Random;
 
+import javax.inject.Inject;
+
 public class FortuneMachine {
+
+    // これでNewしているのと同じ扱い
+    @Inject
     TwiterClient twiterClient;
 
     String[] fortunes = {"大吉","中吉","小吉","凶","大凶"};
 
-    public FortuneMachine( TwiterClient tc){
-        twiterClient = tc;
+    // コンストラクタにも必要
+    @Inject
+    public FortuneMachine(){
+        // twiterClient = new TwiterClient();
     }
 
     public String checkFortune(){
         int no = getRandomNo();
-        twiterClient.postTwitter(fortunes[no]);
+        twiterClient.postData(fortunes[no]);
         return fortunes[no];
     }
 
@@ -26,3 +31,4 @@ public class FortuneMachine {
         return n;
     }
 }
+
